@@ -1,0 +1,34 @@
+<section id="skills" class="py-16 border-t border-white/5 relative bg-dark-800/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between mb-8">
+            <h2 class="text-2xl md:text-3xl font-bold flex items-center gap-3">
+                <i class="fas fa-layer-group text-primary-500"></i> Texnologiyalar
+            </h2>
+            <div class="hidden md:flex gap-2">
+                <button class="w-10 h-10 rounded-full glass flex items-center justify-center text-white hover:bg-primary-500 hover:border-primary-500 transition"><i class="fas fa-chevron-left"></i></button>
+                <button class="w-10 h-10 rounded-full glass flex items-center justify-center text-white hover:bg-primary-500 hover:border-primary-500 transition"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+        <div class="flex gap-4 overflow-x-auto pb-6 scrollbar-hide snap-x">
+            <!-- Barchasi -->
+            <button class="snap-start flex-shrink-0 flex flex-col items-center gap-3 glass-card rounded-2xl p-5 w-32 text-center border-primary-500 border-opacity-50 group bg-primary-500/10">
+                <div class="w-14 h-14 rounded-full bg-primary-500 flex items-center justify-center text-white text-2xl group-hover:scale-110 transition shadow-lg shadow-primary-500/40">
+                    <i class="fas fa-code"></i>
+                </div>
+                <span class="font-bold text-white">Barchasi</span>
+            </button>
+
+            {% for category in categories %}
+            <a href="{% url 'category_projects' category.slug %}"
+                class="snap-start flex-shrink-0 flex flex-col items-center gap-3 glass-card rounded-2xl p-5 w-32 text-center group">
+                <div class="w-14 h-14 rounded-full bg-white/5 flex items-center justify-center text-gray-300 text-2xl group-hover:scale-110 group-hover:bg-primary-500 group-hover:text-white transition group-hover:shadow-lg group-hover:shadow-primary-500/40">
+                    {{ category.icon|safe }}
+                </div>
+                <span class="font-medium text-gray-300 group-hover:text-white transition">{{ category.name }}</span>
+            </a>
+            {% empty %}
+            <p class="text-gray-400 py-4">Hozircha kategoriyalar yo'q.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>

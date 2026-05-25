@@ -1,0 +1,39 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}{{ block.super }}
+<style>
+body { background: #0f172a !important; }
+#content-main { background: transparent; }
+.login #content { background: rgba(30,41,59,0.7); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; backdrop-filter: blur(12px); padding: 2rem; }
+.login #header { background: #f97316; }
+input[type="text"], input[type="password"] { background: rgba(15,23,42,0.7) !important; border: 1px solid rgba(255,255,255,0.1) !important; color: white !important; border-radius: 8px; }
+input[type="submit"] { background: #f97316 !important; border: none !important; border-radius: 8px !important; font-weight: bold; }
+input[type="submit"]:hover { background: #ea580c !important; }
+label { color: #94a3b8 !important; }
+h1 { color: white !important; }
+</style>
+{% endblock %}
+
+{% block content %}
+{% if form.errors %}
+<p class="errornote">{% blocktranslate count counter=form.errors.items|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktranslate %}</p>
+{% endif %}
+{% if next %}
+{% if user.is_authenticated %}<p class="errornote">{% translate "Your account doesn't have access to this page." %}</p>{% else %}<p class="errornote">{% translate "Please log in again." %}</p>{% endif %}
+{% endif %}
+<div id="content-main">
+<form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+<div class="form-row">
+<label for="id_username">{% translate 'Username' %}:</label>
+<input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">
+</div>
+<div class="form-row">
+<label for="id_password">{% translate 'Password' %}:</label>
+<input type="password" name="password" autocomplete="current-password" required="" id="id_password">
+<input type="hidden" name="next" value="{{ next }}">
+</div>
+<div class="submit-row"><input type="submit" value="{% translate 'Log in' %}"></div>
+</form>
+</div>
+{% endblock %}

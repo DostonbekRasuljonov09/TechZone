@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+
+{% block title %}Men haqimda - Portfolio{% endblock %}
+
+{% block hero %}
+<header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-dark-900 text-center">
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1607705703571-c5a8695f18f6?auto=format&fit=crop&w=1920&q=80"
+            alt="Background" class="w-full h-full object-cover opacity-10">
+        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/80 to-transparent"></div>
+    </div>
+    <div class="max-w-4xl mx-auto px-4 relative z-10">
+        <p class="text-primary-500 font-bold tracking-widest uppercase mb-4 text-sm animate-pulse">Men haqimda</p>
+        <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6">Shaxsiy<br>Ma'lumotlar</h1>
+        <p class="text-xl text-gray-300 leading-relaxed">Dasturlashga ishtiyoqli, yangi texnologiyalarni o'rganishga doim tayyor bo'lgan Backend dasturchi.</p>
+    </div>
+</header>
+{% endblock %}
+
+{% block main %}
+<!-- Kim men -->
+<section class="py-20 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row gap-16 items-center">
+            <div class="lg:w-1/2 relative group">
+                <img src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?auto=format&fit=crop&w=800&q=80"
+                    alt="Developer" class="rounded-3xl shadow-2xl z-10 relative">
+                <div class="absolute inset-0 bg-primary-500/20 rounded-3xl transform translate-x-4 translate-y-4 -z-10 group-hover:translate-x-6 group-hover:translate-y-6 transition duration-300"></div>
+            </div>
+
+            <div class="lg:w-1/2 space-y-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-white mb-4">Kim men?</h2>
+                    <div class="w-16 h-1 bg-primary-500 rounded-full mb-6"></div>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-4">
+                        Men Farg'ona shahri Rishton tumanida yashovchi Backend Python Django dasturchiman. Web texnologiyalari, backend tizimlar va foydalanuvchi interfeyslari yaratishga ixtisoslashganman.
+                    </p>
+                    <p class="text-gray-400 leading-relaxed">
+                        Mening maqsadim — foydalanuvchilarga haqiqiy qiymat beradigan, tez ishlaydi va chiroyli ko'rinadigan dasturiy mahsulotlar yaratish.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="glass-card p-6 rounded-2xl">
+                        <div class="w-12 h-12 bg-primary-500/10 rounded-xl flex items-center justify-center text-primary-500 text-xl mb-4"><i class="fas fa-code"></i></div>
+                        <h3 class="text-white font-bold mb-2">Toza Kod</h3>
+                        <p class="text-sm text-gray-500">O'qilishi va qo'llab-quvvatlanishi oson, yaxshi tuzilgan kod yozaman.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl">
+                        <div class="w-12 h-12 bg-primary-500/10 rounded-xl flex items-center justify-center text-primary-500 text-xl mb-4"><i class="fas fa-bolt"></i></div>
+                        <h3 class="text-white font-bold mb-2">Tezkor Ishlash</h3>
+                        <p class="text-sm text-gray-500">Loyihalarni belgilangan muddat ichida va yuqori sifatda yetkazib beraman.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl">
+                        <div class="w-12 h-12 bg-primary-500/10 rounded-xl flex items-center justify-center text-primary-500 text-xl mb-4"><i class="fas fa-users"></i></div>
+                        <h3 class="text-white font-bold mb-2">Jamoa ishlash</h3>
+                        <p class="text-sm text-gray-500">Samarali muloqot orqali jamoa bilan ishlayman.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Ko'nikmalar darajasi -->
+<section class="py-20 bg-dark-800/30 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <p class="text-primary-500 font-bold mb-3 tracking-widest uppercase text-sm">Texnik</p>
+            <h2 class="text-4xl font-extrabold text-white">Ko'nikmalar darajasi</h2>
+            <div class="w-24 h-1 bg-primary-500 mx-auto mt-6 rounded-full"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto" id="skills">
+            <div class="space-y-6">
+                {% for label, width in skill_list_left %}
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-white font-medium">{{ label }}</span>
+                        <span class="text-primary-400 font-bold">{{ width }}%</span>
+                    </div>
+                    <div class="skill-bar"><div class="skill-bar-fill" data-width="{{ width }}" style="width:0%"></div></div>
+                </div>
+                {% empty %}
+                <div>
+                    <div class="flex justify-between mb-2"><span class="text-white font-medium flex items-center gap-2"><i class="fab fa-python text-primary-500"></i> Python / Django</span><span class="text-primary-400 font-bold">95%</span></div>
+                    <div class="skill-bar"><div class="skill-bar-fill" data-width="90" style="width:0%"></div></div>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-2"><span class="text-white font-medium flex items-center gap-2"><i class="fab fa-html5 text-primary-500"></i> HTML / CSS</span><span class="text-primary-400 font-bold">85%</span></div>
+                    <div class="skill-bar"><div class="skill-bar-fill" data-width="95" style="width:0%"></div></div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="space-y-6">
+                <div>
+                    <div class="flex justify-between mb-2"><span class="text-white font-medium flex items-center gap-2"><i class="fas fa-database text-primary-500"></i> PostgreSQL</span><span class="text-primary-400 font-bold">80%</span></div>
+                    <div class="skill-bar"><div class="skill-bar-fill" data-width="85" style="width:0%"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tajriba & Ta'lim -->
+<section class="py-20 border-t border-white/5">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+            <!-- Ish tajribasi -->
+            <div>
+                <h3 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                    <i class="fas fa-briefcase text-primary-500"></i> Ish tajribasi
+                </h3>
+                <div class="space-y-8">
+                    <div class="relative pl-8 border-l-2 border-primary-500/30">
+                        <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary-500 shadow-lg shadow-primary-500/50"></div>
+                    </div>
+                    <div class="relative pl-8 border-l-2 border-white/10">
+                        <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-dark-700 border-2 border-white/20"></div>
+                        <div class="glass-card rounded-2xl p-5">
+                            <p class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">2025</p>
+                            <h4 class="text-white font-bold text-lg mb-1">Backend Developer</h4>
+                            <p class="text-gray-400 text-sm mb-3">Farg'ona</p>
+                            <p class="text-gray-500 text-sm">Django va Python backend saytlar yaratish.</p>
+                        </div>
+                    </div>
+                    <div class="relative pl-8 border-l-2 border-white/10">
+                        <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-dark-700 border-2 border-white/20"></div>
+                        <div class="glass-card rounded-2xl p-5">
+                            <p class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">2025 — Hozir</p>
+                            <h4 class="text-white font-bold text-lg mb-1">Junior Developer</h4>
+                            <p class="text-gray-400 text-sm mb-3">Farg'ona</p>
+                            <p class="text-gray-500 text-sm">Web saytlar yaratish.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Ta'lim -->
+            <div>
+                <h3 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                    <i class="fas fa-graduation-cap text-primary-500"></i> Ta'lim
+                </h3>
+                <div class="space-y-8">
+                    <div class="relative pl-8 border-l-2 border-primary-500/30">
+                        <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary-500 shadow-lg shadow-primary-500/50"></div>
+                        <div class="glass-card rounded-2xl p-5">
+                            <p class="text-primary-400 text-xs font-bold uppercase tracking-wider mb-1">2025 — 2026</p>
+                            <h4 class="text-white font-bold text-lg mb-1">Kompyuter Ilmlari</h4>
+                            <p class="text-gray-400 text-sm mb-3">Najot Ta'lim</p>
+                            <p class="text-gray-500 text-sm">Dasturlash, algoritm va ma'lumotlar tuzilmasi.</p>
+                        </div>
+                    </div>
+                    <div class="relative pl-8 border-l-2 border-white/10">
+                        <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-dark-700 border-2 border-white/20"></div>
+                        <div class="glass-card rounded-2xl p-5">
+                            <p class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">2025</p>
+                            <h4 class="text-white font-bold text-lg mb-1">Backend Python Django kursi</h4>
+                            <p class="text-gray-400 text-sm mb-3">Najot Ta'lim</p>
+                            <p class="text-gray-500 text-sm">Django, PostgreSQL va Python asoslari.</p>
+                        </div>
+                    </div>
+                    <div class="relative pl-8 border-l-2 border-white/10">
+                        <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-dark-700 border-2 border-white/20"></div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CV yuklab olish -->
+<section class="py-16 bg-dark-800/50 border-t border-white/5 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-primary-500/5 to-transparent pointer-events-none"></div>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <h2 class="text-3xl font-bold text-white mb-4">Rezyumeni yuklab oling</h2>
+        <p class="text-gray-400 mb-8">Mening to'liq ish tajribam va ko'nikmalarim haqida batafsil ma'lumot olish uchun rezyumeni yuklab oling.</p>
+        <a href="#"
+            class="inline-flex items-center gap-3 bg-primary-500 hover:bg-primary-600 text-white px-8 py-4 rounded-full font-semibold text-lg transition shadow-lg shadow-primary-500/30 hover:-translate-y-1">
+            <i class="fas fa-download"></i> CV yuklab olish (PDF)
+        </a>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const skillsEl = document.getElementById('skills');
+    if(skillsEl) {
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if(e.isIntersecting) {
+                    document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+                        bar.style.width = bar.getAttribute('data-width') + '%';
+                    });
+                    obs.disconnect();
+                }
+            });
+        }, { threshold: 0.3 });
+        obs.observe(skillsEl);
+    }
+});
+</script>
+{% endblock %}

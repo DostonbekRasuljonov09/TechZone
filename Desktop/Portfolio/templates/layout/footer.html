@@ -1,0 +1,71 @@
+<footer class="bg-dark-900 border-t border-white/10 pt-20 pb-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+            <div>
+                <div class="flex items-center gap-2 mb-6 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-12 h-12 rounded-full bg-primary-500 flex items-center justify-center text-white text-2xl font-bold shadow-lg shadow-primary-500/30">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <span class="font-bold text-3xl tracking-tight text-white">My<span class="text-primary-500">Portfolio</span></span>
+                </div>
+                <p class="text-gray-400 mb-8 text-sm leading-relaxed">Zamonaviy web va mobil ilovalar yaratishga ixtisoslashgan Backend dasturchi. Sifatli kod va ajoyib foydalanuvchi tajribasi.</p>
+                <div class="flex space-x-4">
+                    <a href="https://t.me/Rasuljonov_009" target="_blank" class="w-10 h-10 rounded-full glass hover:bg-primary-500 hover:border-primary-500 flex items-center justify-center text-gray-300 hover:text-white transition group">
+                        <i class="fab fa-telegram-plane group-hover:scale-110 transition"></i>
+                    </a>
+                    <a href="https://instagram.com/cold_aura_009" target="_blank" class="w-10 h-10 rounded-full glass hover:bg-primary-500 hover:border-primary-500 flex items-center justify-center text-gray-300 hover:text-white transition group">
+                        <i class="fab fa-instagram group-hover:scale-110 transition"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase tracking-widest text-sm border-b border-white/10 pb-2">Texnologiyalar</h4>
+                <ul class="space-y-4">
+                    <li><a href="#skills" class="text-gray-400 hover:text-primary-500 transition text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-[10px]"></i> Python / Django</a></li>
+                    <li><a href="#skills" class="text-gray-400 hover:text-primary-500 transition text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-[10px]"></i> HTML / CSS </a></li>
+                    <li><a href="#skills" class="text-gray-400 hover:text-primary-500 transition text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-[10px]"></i> PostgreSQL / SQLite</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase tracking-widest text-sm border-b border-white/10 pb-2">Sahifalar</h4>
+                <ul class="space-y-4">
+                    <li><a href="{% url 'index' %}" class="text-gray-400 hover:text-primary-500 transition text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-[10px]"></i> Asosiy</a></li>
+                    <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-primary-500 transition text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-[10px]"></i> Men haqimda</a></li>
+                    <li><a href="{% url 'index' %}#projects" class="text-gray-400 hover:text-primary-500 transition text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-[10px]"></i> Loyihalar</a></li>
+                    <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-primary-500 transition text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-[10px]"></i> Bog'lanish</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase tracking-widest text-sm border-b border-white/10 pb-2">Aloqa</h4>
+                <ul class="space-y-5">
+                    <li class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full glass flex items-center justify-center text-primary-400 shrink-0">
+                            <i class="fas fa-map-marker-alt text-lg"></i>
+                        </div>
+                        <span class="text-gray-400 text-sm leading-relaxed mt-2">Farg'ona, O'zbekiston</span>
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full glass flex items-center justify-center text-primary-400 shrink-0">
+                            <i class="fas fa-envelope text-lg"></i>
+                        </div>
+                        <span class="text-gray-400 text-sm hover:text-white transition cursor-pointer">drasuljonov345@gmail.com</span>
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full glass flex items-center justify-center text-primary-400 shrink-0">
+                            <i class="fab fa-telegram-plane text-lg"></i>
+                        </div>
+                        <a href="https://t.me/username" target="_blank" class="text-gray-400 text-sm hover:text-white transition">@Rasuljonov_009</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-gray-500 text-sm">&copy; <span id="current-year"></span> MyPortfolio. Barcha huquqlar himoyalangan.</p>
+            <p class="text-gray-500 text-sm flex items-center gap-2">Yaratildi <i class="fas fa-dollar text-primary-500"></i> bilan</p>
+        </div>
+    </div>
+</footer>

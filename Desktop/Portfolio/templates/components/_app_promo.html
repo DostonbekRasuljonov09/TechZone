@@ -1,0 +1,39 @@
+<section class="py-20 bg-dark-800/50 border-t border-white/5 relative overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-500/10 rounded-full blur-[150px] pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="glass-card rounded-3xl p-8 md:p-12 lg:p-16 flex flex-col lg:flex-row items-center gap-10 lg:gap-20">
+            <div class="lg:w-1/2 space-y-6 text-center lg:text-left">
+                <h2 class="text-3xl md:text-5xl font-bold">Birgalikda ajoyib loyiha yarataylik!</h2>
+                <p class="text-gray-400 text-lg">Agar siz yangi loyiha boshlashni yoki mavjudini rivojlantirishni istasangiz, men yordam berishga tayyorman. Keling, g'oyangizni birgalikda hayotga tadbiq etaylik.</p>
+                <div class="flex flex-wrap gap-4 justify-center lg:justify-start pt-4">
+                    <a href="{% url 'contact' %}"
+                        class="flex items-center gap-3 bg-primary-500 hover:bg-primary-600 px-6 py-3 rounded-xl transition text-white font-semibold shadow-lg shadow-primary-500/30">
+                        <i class="fas fa-paper-plane"></i>
+                        <div class="font-bold">Xabar yuborish</div>
+                    </a>
+                    <a href="{% url 'about' %}"
+                        class="flex items-center gap-3 glass border border-white/20 hover:border-white/40 px-6 py-3 rounded-xl transition text-white font-semibold">
+                        <i class="fas fa-file-alt"></i>
+                        <div class="font-bold">Rezyumeni ko'rish</div>
+                    </a>
+                </div>
+            </div>
+            <div class="lg:w-1/2 relative">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80"
+                    alt="Coding"
+                    class="rounded-3xl shadow-2xl border-4 border-dark-900/50 rotate-3 hover:rotate-0 transition duration-500">
+                <div class="absolute -bottom-6 -right-6 glass p-4 rounded-2xl shadow-xl animate-bounce">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-full bg-primary-500 flex items-center justify-center text-white text-xl">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div>
+                            <p class="text-white font-bold">Tez ishga tushurish</p>
+                            <p class="text-primary-400 text-sm">24 soat ichida javob</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

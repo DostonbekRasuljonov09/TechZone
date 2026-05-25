@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Portfolio - Asosiy sahifa{% endblock %}
+
+{% block hero %}
+{% include 'components/_hero.html' %}
+{% endblock %}
+
+{% block main %}
+<!-- Stats -->
+<section class="py-14 border-t border-white/5 relative bg-dark-800/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="glass-card rounded-2xl p-6 text-center">
+                <div class="text-4xl font-extrabold text-primary-500 mb-2">1+</div>
+                <div class="text-gray-400 text-sm">Yillik tajriba</div>
+            </div>
+            <div class="glass-card rounded-2xl p-6 text-center">
+                <div class="text-4xl font-extrabold text-primary-500 mb-2">5+</div>
+                <div class="text-gray-400 text-sm">Tugatilgan loyiha</div>
+            </div>
+            <div class="glass-card rounded-2xl p-6 text-center">
+                <div class="text-4xl font-extrabold text-primary-500 mb-2">4+</div>
+                <div class="text-gray-400 text-sm">Texnologiyalar</div>
+            </div>
+            <div class="glass-card rounded-2xl p-6 text-center">
+                <div class="text-4xl font-extrabold text-primary-500 mb-2">5+</div>
+                <div class="text-gray-400 text-sm">Mamnun mijozlar</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Texnologiyalar -->
+{% include 'components/_categories.html' %}
+
+<!-- Loyihalar -->
+{% include 'components/_menu.html' %}
+
+<!-- Hire Me CTA -->
+{% include 'components/_app_promo.html' %}
+{% endblock %}

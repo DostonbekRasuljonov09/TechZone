@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ project.name }} - Portfolio{% endblock %}
+
+{% block hero %}
+<section class="relative pt-32 pb-10 lg:pt-44 overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div class="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full blur-[120px] bg-primary-500/20"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 text-sm text-gray-400 mb-8">
+            <a href="{% url 'index' %}" class="hover:text-primary-500 transition">Asosiy</a>
+            <i class="fas fa-chevron-right text-[10px]"></i>
+            <a href="{% url 'index' %}#projects" class="hover:text-primary-500 transition">Loyihalar</a>
+            <i class="fas fa-chevron-right text-[10px]"></i>
+            <span class="text-white">{{ project.name }}</span>
+        </nav>
+
+        <div class="flex flex-col lg:flex-row gap-12 items-start">
+            <div class="lg:w-2/3 space-y-6">
+                <div class="flex flex-wrap gap-2">
+                    {% for tag in project.tags.all %}
+                    <span class="text-xs glass px-3 py-1.5 rounded-full text-primary-400 border border-primary-500/20">{{ tag.name }}</span>
+                    {% endfor %}
+                </div>
+                <h1 class="text-4xl lg:text-6xl font-bold text-white">{{ project.name }}</h1>
+                <p class="text-lg text-gray-400 leading-relaxed">{{ project.description }}</p>
+                <div class="flex flex-wrap gap-4">
+                    {% if project.github_url %}
+                    <a href="{{ project.github_url }}" target="_blank"
+                        class="glass px-6 py-3 rounded-full font-medium text-white hover:bg-white/10 transition flex items-center gap-2">
+                        <i class="fab fa-github"></i> GitHub'da ko'rish
+                    </a>
+                    {% endif %}
+                    {% if project.demo_url %}
+                    <a href="{{ project.demo_url }}" target="_blank"
+                        class="bg-primary-500 hover:bg-primary-600 text-white px-6 py-3 rounded-full font-medium transition shadow-lg shadow-primary-500/30 flex items-center gap-2">
+                        <i class="fas fa-external-link-alt"></i> Live Demo
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="lg:w-1/3 glass-card rounded-2xl p-6 space-y-5 w-full">
+                <h3 class="text-white font-bold text-lg border-b border-white/10 pb-4">Loyiha ma'lumotlari</h3>
+                {% if project.category %}
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-primary-500/10 flex items-center justify-center text-primary-400 shrink-0">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 uppercase tracking-wider">Kategoriya</p>
+                        <p class="text-white font-medium">{{ project.category.name }}</p>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-primary-500/10 flex items-center justify-center text-primary-400 shrink-0">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 uppercase tracking-wider">Tur</p>
+                        <p class="text-white font-medium">Shaxsiy loyiha</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-green-500/10 flex items-center justify-center text-green-400 shrink-0">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 uppercase tracking-wider">Holat</p>
+                        <p class="text-green-400 font-medium">Tugatilgan</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block main %}
+<!-- Rasmlar -->
+{% if images %}
+<section class="py-10 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="relative rounded-2xl overflow-hidden img-zoom-container shadow-2xl border border-white/10 mb-6">
+            <img src="{{ images.0.image.url }}" alt="{{ project.name }}" class="w-full rounded-2xl" id="mainImage">
+        </div>
+        {% if images|length > 1 %}
+        <div class="flex gap-4 overflow-x-auto pb-2">
+            {% for img in images %}
+            <img src="{{ img.image.url }}" alt="{{ project.name }}"
+                onclick="document.getElementById('mainImage').src='{{ img.image.url }}'"
+                class="w-32 h-20 rounded-xl object-cover cursor-pointer border-2 border-white/10 hover:border-primary-500 transition flex-shrink-0">
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endif %}
+
+<!-- Tafsilotlar -->
+<section class="py-16 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div class="lg:col-span-2 space-y-10">
+                <div>
+                    <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                        <i class="fas fa-info-circle text-primary-500"></i> Loyiha haqida
+                    </h2>
+                    <div class="w-12 h-1 bg-primary-500 rounded-full mb-6"></div>
+                    <p class="text-gray-400 leading-relaxed">{{ project.description }}</p>
+                </div>
+
+                {% if project.tags.exists %}
+                <div>
+                    <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                        <i class="fas fa-tags text-primary-500"></i> Ishlatilgan texnologiyalar
+                    </h2>
+                    <div class="w-12 h-1 bg-primary-500 rounded-full mb-6"></div>
+                    <div class="flex flex-wrap gap-3">
+                        {% for tag in project.tags.all %}
+                        <span class="glass px-4 py-2 rounded-xl text-primary-400 border border-primary-500/20 font-medium">{{ tag.name }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                {% if project.github_url %}
+                <a href="{{ project.github_url }}" target="_blank"
+                    class="glass-card rounded-2xl p-6 flex items-center gap-4 hover:border-primary-500/40 transition group">
+                    <div class="w-12 h-12 rounded-xl bg-primary-500/10 flex items-center justify-center text-primary-500 text-xl group-hover:bg-primary-500 group-hover:text-white transition">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <div>
+                        <p class="text-white font-bold">Kodni ko'rish</p>
+                        <p class="text-gray-500 text-sm">GitHub repositoriya</p>
+                    </div>
+                    <i class="fas fa-arrow-right ml-auto text-gray-500 group-hover:text-primary-400 transition"></i>
+                </a>
+                {% endif %}
+                {% if project.demo_url %}
+                <a href="{{ project.demo_url }}" target="_blank"
+                    class="glass-card rounded-2xl p-6 flex items-center gap-4 hover:border-primary-500/40 transition group">
+                    <div class="w-12 h-12 rounded-xl bg-primary-500/10 flex items-center justify-center text-primary-500 text-xl group-hover:bg-primary-500 group-hover:text-white transition">
+                        <i class="fas fa-external-link-alt"></i>
+                    </div>
+                    <div>
+                        <p class="text-white font-bold">Live Demo</p>
+                        <p class="text-gray-500 text-sm">Saytni ochib ko'rish</p>
+                    </div>
+                    <i class="fas fa-arrow-right ml-auto text-gray-500 group-hover:text-primary-400 transition"></i>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Navigation -->
+<section class="py-12 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center gap-6">
+            <a href="{% url 'index' %}#projects"
+                class="glass-card rounded-2xl px-6 py-4 flex items-center gap-4 hover:border-primary-500/40 transition group">
+                <i class="fas fa-arrow-left text-gray-400 group-hover:text-primary-400 transition"></i>
+                <div>
+                    <p class="text-gray-500 text-xs uppercase tracking-wider">Orqaga</p>
+                    <p class="text-white font-medium">Barcha loyihalar</p>
+                </div>
+            </a>
+            <a href="{% url 'contact' %}"
+                class="bg-primary-500 hover:bg-primary-600 text-white px-6 py-4 rounded-2xl font-medium transition shadow-lg shadow-primary-500/30 flex items-center gap-2">
+                Hamkorlik qilish <i class="fas fa-handshake"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

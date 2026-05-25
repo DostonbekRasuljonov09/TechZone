@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}Bog'lanish - Portfolio{% endblock %}
+
+{% block hero %}
+<header class="relative pt-32 pb-16 lg:pt-44 overflow-hidden bg-dark-900 text-center">
+    <div class="absolute inset-0 z-0">
+        <div class="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full blur-[120px] bg-primary-500/20"></div>
+        <div class="absolute top-[40%] -left-[10%] w-[40%] h-[40%] rounded-full blur-[100px] bg-blue-500/10"></div>
+    </div>
+    <div class="max-w-4xl mx-auto px-4 relative z-10">
+        <p class="text-primary-500 font-bold tracking-widest uppercase mb-4 text-sm animate-pulse">Aloqa</p>
+        <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-6">Bog'lanish</h1>
+        <p class="text-xl text-gray-300 leading-relaxed">Loyiha yoki hamkorlik bo'yicha xabar yuboring, 24 soat ichida javob beraman.</p>
+    </div>
+</header>
+{% endblock %}
+
+{% block main %}
+<section class="py-16 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
+
+            <!-- Contact info -->
+            <div class="lg:col-span-2 space-y-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-white mb-4">Keling gaplashaylik</h2>
+                    <div class="w-12 h-1 bg-primary-500 rounded-full mb-6"></div>
+                    <p class="text-gray-400 leading-relaxed">Yangi loyiha boshlash, hamkorlik yoki oddiygina salomlashish uchun menga yozing. Men doim muloqotga tayyorman!</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="glass-card rounded-2xl p-5 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-primary-500/10 flex items-center justify-center text-primary-500 text-xl shrink-0"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <p class="text-gray-400 text-xs uppercase tracking-wider mb-1">Email</p>
+                            <p class="text-white font-medium">drasuljonov345@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-5 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-primary-500/10 flex items-center justify-center text-primary-500 text-xl shrink-0"><i class="fab fa-telegram-plane"></i></div>
+                        <div>
+                            <p class="text-gray-400 text-xs uppercase tracking-wider mb-1">Telegram</p>
+                            <a href="https://t.me/username" target="_blank" class="text-white font-medium hover:text-primary-400 transition">@Rasuljonov_009</a>
+                        </div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-5 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-primary-500/10 flex items-center justify-center text-primary-500 text-xl shrink-0"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <p class="text-gray-400 text-xs uppercase tracking-wider mb-1">Joylashuv</p>
+                            <p class="text-white font-medium">Farg'ona, O'zbekiston</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-3 pt-2">
+                    <a href="https://t.me/Rasuljonov_009" target="_blank" class="w-11 h-11 rounded-full glass hover:bg-primary-500 flex items-center justify-center text-gray-300 hover:text-white transition"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="https://instagram.com/cold_aura_009" target="_blank" class="w-11 h-11 rounded-full glass hover:bg-primary-500 flex items-center justify-center text-gray-300 hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div class="lg:col-span-3">
+                <div class="glass-card rounded-3xl p-8 md:p-10" id="contact-card">
+                    <h3 class="text-xl font-bold text-white mb-6 border-b border-white/10 pb-4">Xabar yuborish</h3>
+                    <div id="success-msg" class="hidden bg-green-500/10 border border-green-500/30 text-green-400 text-sm px-4 py-3 rounded-xl mb-5">
+                        <i class="fas fa-check-circle mr-2"></i> Xabaringiz yuborildi! Tez orada javob beraman.
+                    </div>
+                    <div id="error-msg" class="hidden bg-red-500/10 border border-red-500/30 text-red-400 text-sm px-4 py-3 rounded-xl mb-5">
+                        <i class="fas fa-exclamation-circle mr-2"></i> <span id="error-text"></span>
+                    </div>
+                    <form id="contact-form" method="POST" action="{% url 'contact' %}" class="space-y-5">
+                        {% csrf_token %}
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Ismingiz <span class="text-red-500">*</span></label>
+                                <input type="text" name="name" required placeholder="Ali Valiyev"
+                                    class="w-full bg-dark-800/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-primary-500 focus:bg-dark-800 transition">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">Email <span class="text-red-500">*</span></label>
+                                <input type="email" name="email" required placeholder="email@example.com"
+                                    class="w-full bg-dark-800/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-primary-500 focus:bg-dark-800 transition">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Mavzu <span class="text-red-500">*</span></label>
+                            <input type="text" name="subject" required placeholder="Loyiha yoki hamkorlik haqida"
+                                class="w-full bg-dark-800/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-primary-500 focus:bg-dark-800 transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Xabar <span class="text-red-500">*</span></label>
+                            <textarea rows="5" name="text" required placeholder="Xabaringizni yozing..."
+                                class="w-full bg-dark-800/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-primary-500 focus:bg-dark-800 transition resize-none"></textarea>
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-primary-500 hover:bg-primary-600 text-white py-4 rounded-xl font-semibold text-lg transition shadow-lg shadow-primary-500/30 flex items-center justify-center gap-2 hover:-translate-y-0.5">
+                            <i class="fas fa-paper-plane"></i> Yuborish
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = this;
+    const data = new FormData(form);
+    fetch('{% url "contact" %}', { method: 'POST', body: data, headers: {'X-Requested-With': 'XMLHttpRequest'} })
+        .then(r => r.json())
+        .then(res => {
+            if(res.success) {
+                document.getElementById('success-msg').classList.remove('hidden');
+                document.getElementById('error-msg').classList.add('hidden');
+                form.reset();
+            } else {
+                document.getElementById('error-text').textContent = res.error || 'Xatolik yuz berdi.';
+                document.getElementById('error-msg').classList.remove('hidden');
+                document.getElementById('success-msg').classList.add('hidden');
+            }
+        })
+        .catch(() => { Toast.show("Xatolik yuz berdi. Qayta urinib ko'ring.", 'error'); });
+});
+</script>
+{% endblock %}
