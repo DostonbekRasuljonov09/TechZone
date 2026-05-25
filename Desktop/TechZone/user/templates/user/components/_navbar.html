@@ -1,0 +1,20 @@
+<!-- Simple Navbar -->
+<nav class="absolute w-full z-40 top-0">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20 border-b border-white/10">
+            <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer"
+                 onclick="window.location.href='{% url 'index' %}'">
+                <div
+                        class="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center text-white text-xl font-bold">
+                    <i class="fas fa-hamburger"></i>
+                </div>
+                <span class="font-bold text-2xl tracking-tight text-white">Burger<span
+                        class="text-primary-500">House</span></span>
+            </div>
+            <a href="{% url 'index' %}"
+               class="text-sm font-medium text-gray-400 hover:text-white transition flex items-center gap-2">
+                <i class="fas fa-arrow-left"></i> Asosiyga qaytish
+            </a>
+        </div>
+    </div>
+</nav>

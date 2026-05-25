@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block title %}Buyurtma berish — TechZone{% endblock %}
+{% block hero %}{% endblock %}
+{% block main %}
+<section class="pt-32 pb-20 min-h-screen">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Steps -->
+    <div class="flex items-center justify-center gap-4 mb-12">
+      <div class="flex items-center gap-2 text-sm font-bold" style="color:#60a5fa;"><span class="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background:#3b82f6;">1</span> Ma'lumotlar</div>
+      <div class="h-px w-12" style="background:rgba(59,130,246,0.3);"></div>
+      <div class="flex items-center gap-2 text-sm text-gray-400"><span class="w-8 h-8 rounded-full glass flex items-center justify-center text-sm font-bold">2</span> To'lov</div>
+      <div class="h-px w-12" style="background:rgba(255,255,255,0.1);"></div>
+      <div class="flex items-center gap-2 text-sm text-gray-400"><span class="w-8 h-8 rounded-full glass flex items-center justify-center text-sm font-bold">3</span> Tasdiqlash</div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Form -->
+      <div class="lg:col-span-2 space-y-6">
+        <form method="post" id="checkout-form">
+          {% csrf_token %}
+
+          <!-- Delivery info -->
+          <div class="glass-card rounded-3xl p-7">
+            <h2 class="font-bold text-white text-xl mb-5 flex items-center gap-2" style="font-family:'Syne',sans-serif;"><i class="fas fa-map-marker-alt text-primary-400"></i> Yetkazib berish manzili</h2>
+            <div class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-xs text-gray-400 mb-1.5 block">Ism</label>
+                  <input type="text" value="{{ user.first_name }}" class="w-full rounded-xl py-3 px-4 text-white focus:outline-none focus:border-primary-500 transition" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);" readonly>
+                </div>
+                <div>
+                  <label class="text-xs text-gray-400 mb-1.5 block">Telefon</label>
+                  <input type="text" value="{{ user.phone|default:'+998' }}" class="w-full rounded-xl py-3 px-4 text-white focus:outline-none focus:border-primary-500 transition" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);">
+                </div>
+              </div>
+              <div>
+                <label class="text-xs text-gray-400 mb-1.5 block">To'liq manzil <span class="text-red-400">*</span></label>
+                <textarea name="address" rows="3" required placeholder="Shahar, tuman, ko'cha, uy raqami..." class="w-full rounded-xl py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 transition resize-none" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);">{{ user.address }}</textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment method -->
+          <div class="glass-card rounded-3xl p-7">
+            <h2 class="font-bold text-white text-xl mb-5 flex items-center gap-2" style="font-family:'Syne',sans-serif;"><i class="fas fa-credit-card text-primary-400"></i> To'lov usuli</h2>
+            <div class="space-y-3 mb-6">
+              <label class="flex items-center gap-4 p-4 rounded-xl cursor-pointer transition border" style="border-color:rgba(59,130,246,0.5);background:rgba(59,130,246,0.08);">
+                <input type="radio" name="payment_type" value="card" checked class="w-4 h-4" style="accent-color:#3b82f6;">
+                <div class="flex-1"><p class="font-bold text-white text-sm">Karta orqali (Stripe)</p><p class="text-gray-400 text-xs mt-0.5">Visa, Mastercard, UZCARD, HUMO</p></div>
+                <i class="fab fa-cc-visa text-2xl text-white"></i>
+              </label>
+              <label class="flex items-center gap-4 p-4 rounded-xl cursor-pointer transition border border-white/10 hover:border-white/25">
+                <input type="radio" name="payment_type" value="cash" class="w-4 h-4" style="accent-color:#3b82f6;">
+                <div class="flex-1"><p class="font-bold text-white text-sm">Naqd pul</p><p class="text-gray-400 text-xs mt-0.5">Yetkazib berganda to'lang</p></div>
+                <i class="fas fa-money-bill-wave text-2xl text-green-400"></i>
+              </label>
+              <label class="flex items-center gap-4 p-4 rounded-xl cursor-pointer transition border border-white/10 hover:border-white/25">
+                <input type="radio" name="payment_type" value="stripe" class="w-4 h-4" style="accent-color:#3b82f6;">
+                <div class="flex-1"><p class="font-bold text-white text-sm">Click / Payme</p><p class="text-gray-400 text-xs mt-0.5">O'zbekiston to'lov tizimlari</p></div>
+                <i class="fas fa-mobile-alt text-2xl text-sky-400"></i>
+              </label>
+            </div>
+
+            <!-- Stripe card fields (shown for card payment) -->
+            <div id="card-fields" class="space-y-4">
+              <div>
+                <label class="text-xs text-gray-400 mb-1.5 block">Karta raqami</label>
+                <div class="relative">
+                  <input type="text" id="card-number" placeholder="0000 0000 0000 0000" maxlength="19" class="w-full rounded-xl py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 transition font-mono" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);">
+                  <i class="fas fa-lock absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="text-xs text-gray-400 mb-1.5 block">Muddati</label>
+                  <input type="text" placeholder="MM / YY" maxlength="7" class="w-full rounded-xl py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 transition" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);">
+                </div>
+                <div>
+                  <label class="text-xs text-gray-400 mb-1.5 block">CVV</label>
+                  <input type="password" placeholder="•••" maxlength="3" class="w-full rounded-xl py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 transition" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);">
+                </div>
+              </div>
+              <div class="flex items-center gap-2 text-xs text-gray-500 mt-1">
+                <i class="fas fa-lock text-green-400"></i> 256-bit SSL • Stripe Payment System bilan himoyalangan
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="w-full text-white py-4 rounded-xl font-bold text-xl transition shadow-lg shadow-blue-500/25 hover:-translate-y-0.5" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);">
+            <i class="fas fa-check-circle mr-2"></i>Buyurtmani tasdiqlash
+          </button>
+        </form>
+      </div>
+
+      <!-- Order summary -->
+      <div class="lg:col-span-1">
+        <div class="glass-card rounded-2xl p-7 sticky top-28">
+          <h3 class="font-bold text-white text-xl mb-5" style="font-family:'Syne',sans-serif;">Buyurtma</h3>
+          <div class="space-y-4 mb-5">
+            {% for item in cart_items %}
+            <div class="flex items-center gap-3">
+              <img src="{{ item.product.get_image }}" class="w-12 h-12 rounded-lg object-cover" alt="{{ item.product.name }}" onerror="this.src='https://placehold.co/60x60/1e293b/60a5fa?text=T'">
+              <div class="flex-1 min-w-0">
+                <p class="text-white font-medium text-xs truncate">{{ item.product.name }}</p>
+                <p class="text-gray-500 text-xs">×{{ item.qty }}</p>
+              </div>
+              <span class="text-white font-bold text-xs flex-shrink-0">{{ item.subtotal|floatformat:0 }}</span>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="border-t border-white/10 pt-4 space-y-2 text-sm">
+            <div class="flex justify-between text-gray-400"><span>Mahsulotlar:</span><span class="text-white">{{ total|floatformat:0 }}</span></div>
+            <div class="flex justify-between text-gray-400"><span>Yetkazib berish:</span><span class="text-green-400">Bepul</span></div>
+            <div class="flex justify-between font-bold text-white text-base mt-3 pt-3 border-t border-white/10"><span>Jami:</span><span class="gradient-text">{{ total|floatformat:0 }} so'm</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Card number formatting
+const cardInput = document.getElementById('card-number');
+if (cardInput) {
+  cardInput.addEventListener('input', function(e) {
+    let val = e.target.value.replace(/\D/g, '').substring(0, 16);
+    e.target.value = val.replace(/(.{4})/g, '$1 ').trim();
+  });
+}
+// Toggle card fields
+document.querySelectorAll('input[name="payment_type"]').forEach(radio => {
+  radio.addEventListener('change', function() {
+    document.getElementById('card-fields').style.display = this.value === 'card' ? 'block' : 'none';
+  });
+});
+</script>
+{% endblock %}

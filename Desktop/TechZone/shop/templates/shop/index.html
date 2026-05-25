@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% block title %}TechZone — Bosh sahifa{% endblock %}
+
+{% block hero %}
+<!-- Hero -->
+<section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden grid-bg">
+  <div class="absolute inset-0 -z-10 pointer-events-none">
+    <div class="absolute -top-[15%] -right-[5%] w-[55%] h-[55%] rounded-full" style="filter:blur(130px);background:rgba(59,130,246,0.15);"></div>
+    <div class="absolute top-[50%] -left-[10%] w-[40%] h-[40%] rounded-full" style="filter:blur(110px);background:rgba(6,182,212,0.1);"></div>
+  </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="space-y-8 text-center lg:text-left">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary-500/25 text-primary-300 text-sm font-medium animate-pulse">
+          <i class="fas fa-bolt text-accent-400"></i> Eng yangi texnologiyalar
+        </div>
+        <h1 class="font-syne text-5xl lg:text-7xl font-bold leading-tight" style="font-family:'Syne',sans-serif;">
+          Eng Yaxshi<br class="hidden lg:block">
+          <span class="gradient-text">Telefon &amp; Laptop</span>
+        </h1>
+        <p class="text-lg text-gray-400 lg:max-w-lg leading-relaxed mx-auto lg:mx-0">Apple, Samsung, Xiaomi, ASUS va boshqa yetakchi brendlarning eng so'nggi modellari. Original kafolat bilan!</p>
+        <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+          <a href="#products" class="text-white px-8 py-4 rounded-full font-semibold text-lg transition shadow-lg shadow-blue-500/25 flex items-center gap-2 hover:-translate-y-1" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);">
+            Xarid qilish <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        <!-- Stats -->
+        <div class="flex flex-wrap gap-6 justify-center lg:justify-start pt-2">
+          <div class="text-center"><p class="text-2xl font-bold gradient-text font-syne" style="font-family:'Syne',sans-serif;">500+</p><p class="text-xs text-gray-400">Mahsulot</p></div>
+          <div class="text-center"><p class="text-2xl font-bold gradient-text font-syne" style="font-family:'Syne',sans-serif;">20+</p><p class="text-xs text-gray-400">Brend</p></div>
+          <div class="text-center"><p class="text-2xl font-bold gradient-text font-syne" style="font-family:'Syne',sans-serif;">50k+</p><p class="text-xs text-gray-400">Mijozlar</p></div>
+          <div class="text-center"><p class="text-2xl font-bold gradient-text font-syne" style="font-family:'Syne',sans-serif;">4.9⭐</p><p class="text-xs text-gray-400">Reyting</p></div>
+        </div>
+      </div>
+      <div class="relative mt-8 lg:mt-0">
+        <div class="absolute inset-0 rounded-3xl" style="background:linear-gradient(135deg,rgba(59,130,246,0.2),rgba(6,182,212,0.1));filter:blur(40px);"></div>
+        <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=800&q=80" alt="Tech" class="relative z-10 w-full rounded-3xl shadow-2xl border border-primary-500/10 hover:scale-[1.02] transition duration-500">
+        <div class="absolute -bottom-5 -left-4 glass px-5 py-3 rounded-2xl z-20 flex items-center gap-3 shadow-xl" style="animation:bounce 3s ease-in-out infinite;">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center text-green-400 text-xl" style="background:rgba(34,197,94,0.2);"><i class="fas fa-shield-alt"></i></div>
+          <div><p class="text-xs text-gray-400 uppercase tracking-wider font-bold">Kafolat</p><p class="font-extrabold text-white">2 yil rasmiy</p></div>
+        </div>
+        <div class="absolute -top-4 -right-4 glass px-4 py-3 rounded-xl z-20 flex items-center gap-2 shadow-xl">
+          <i class="fas fa-truck text-accent-400 text-lg"></i>
+          <div><p class="text-xs text-gray-400">Yetkazib berish</p><p class="font-bold text-white text-sm">Bepul 🚚</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block main %}
+<!-- Filter + Sort bar -->
+<section id="products" class="py-10 border-t border-primary-500/5" style="background:rgba(15,24,40,0.3);">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Categories -->
+    <div class="flex flex-wrap gap-3 mb-6 items-center">
+      <a href="{% url 'index' %}{% if q %}?q={{ q }}{% endif %}" class="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition {% if not current_cat %}text-white border border-primary-500{% else %}text-gray-400 glass border border-white/10 hover:text-white{% endif %}" {% if not current_cat %}style="background:rgba(59,130,246,0.15);"{% endif %}>
+        <i class="fas fa-th text-sm"></i> Barchasi
+      </a>
+      {% for cat in categories %}
+      <a href="{% url 'index' %}?category={{ cat.slug }}{% if q %}&q={{ q }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}" class="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition {% if current_cat == cat.slug %}text-white border border-primary-500{% else %}text-gray-400 glass border border-white/10 hover:text-white{% endif %}" {% if current_cat == cat.slug %}style="background:rgba(59,130,246,0.15);"{% endif %}>
+        {{ cat.icon|safe }} {{ cat.name }}
+      </a>
+      {% endfor %}
+    </div>
+
+    <!-- Sort + Search -->
+    <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
+      <p class="text-gray-400 text-sm"><span class="text-white font-bold">{{ products|length }}</span> ta mahsulot topildi</p>
+      <div class="flex gap-3 flex-wrap">
+        <form action="{% url 'index' %}" method="get" class="relative">
+          {% if current_cat %}<input type="hidden" name="category" value="{{ current_cat }}">{% endif %}
+          <input type="text" name="q" value="{{ q }}" placeholder="Qidirish..." class="bg-white/5 border border-white/10 rounded-xl py-2.5 pl-9 pr-4 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-primary-500">
+          <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-xs"></i>
+        </form>
+        <div class="flex gap-2">
+          <a href="?{% if current_cat %}category={{ current_cat }}&{% endif %}{% if q %}q={{ q }}&{% endif %}sort=asc" class="px-4 py-2.5 rounded-xl text-sm font-medium transition glass border {% if current_sort == 'asc' %}border-primary-500 text-primary-400{% else %}border-white/10 text-gray-400 hover:text-white{% endif %}">
+            <i class="fas fa-arrow-up mr-1"></i>Arzon
+          </a>
+          <a href="?{% if current_cat %}category={{ current_cat }}&{% endif %}{% if q %}q={{ q }}&{% endif %}sort=desc" class="px-4 py-2.5 rounded-xl text-sm font-medium transition glass border {% if current_sort == 'desc' %}border-primary-500 text-primary-400{% else %}border-white/10 text-gray-400 hover:text-white{% endif %}">
+            <i class="fas fa-arrow-down mr-1"></i>Qimmat
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Products Grid -->
+<section class="pb-20 border-t border-white/5">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+    {% if products %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7">
+      {% for product in products %}
+      <div class="glass-card rounded-2xl p-5 flex flex-col h-full group cursor-pointer" onclick="window.location.href='{% url 'product_detail' product.slug %}'">
+        <div class="relative rounded-xl overflow-hidden img-zoom-container mb-4 aspect-square" style="background:rgba(255,255,255,0.05);">
+          <img src="{{ product.get_image }}" alt="{{ product.name }}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x400/1e293b/60a5fa?text={{ product.brand }}'">
+          <div class="absolute top-3 right-3 backdrop-blur-md px-2.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1" style="background:rgba(8,12,20,0.9);border:1px solid rgba(255,255,255,0.1);">
+            <i class="fas fa-star text-yellow-400"></i> {{ product.avg_rating }}
+          </div>
+          {% if forloop.counter <= 3 %}
+          <div class="absolute top-3 left-3 text-white px-2 py-1 rounded-md text-xs font-bold uppercase" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);">Yangi</div>
+          {% endif %}
+          {% if product.stock < 5 %}
+          <div class="absolute bottom-3 left-3 bg-red-500 text-white px-2 py-1 rounded-md text-xs font-bold">Kamaymoqda!</div>
+          {% endif %}
+        </div>
+        <div class="flex-1 flex flex-col">
+          <span class="text-xs text-primary-400 font-bold uppercase tracking-wider mb-1">{{ product.brand }}</span>
+          <h3 class="font-bold text-white group-hover:text-primary-400 transition mb-1 text-lg leading-tight" style="font-family:'Syne',sans-serif;">{{ product.name }}</h3>
+          <p class="text-sm text-gray-400 mb-4 leading-relaxed line-clamp-2">{{ product.description|truncatechars:80 }}</p>
+          <div class="mt-auto flex items-center justify-between pt-4 border-t border-white/10">
+            <div>
+              <span class="text-xl font-bold text-white" style="font-family:'Syne',sans-serif;">{{ product.price|floatformat:0 }}</span>
+              <span class="text-xs text-gray-400 ml-1">so'm</span>
+            </div>
+            <a href="{% url 'cart_add' product.pk %}" onclick="event.stopPropagation();" class="w-11 h-11 rounded-full flex items-center justify-center text-white transition shadow-lg hover:shadow-blue-500/40 group-hover:bg-primary-500" style="background:rgba(255,255,255,0.1);" title="Savatga qo'shish">
+              <i class="fas fa-cart-plus"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-24">
+      <div class="w-24 h-24 rounded-full flex items-center justify-center text-4xl mx-auto mb-5" style="background:rgba(59,130,246,0.1);"><i class="fas fa-search text-primary-400"></i></div>
+      <h3 class="text-2xl font-bold text-white mb-2" style="font-family:'Syne',sans-serif;">Mahsulot topilmadi</h3>
+      <p class="text-gray-400 mb-6">Boshqa kategoriya yoki kalit so'z bilan qidiring</p>
+      <a href="{% url 'index' %}" class="inline-block px-6 py-3 rounded-xl text-white font-medium" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);">Barchani ko'rish</a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Why Us -->
+<section class="py-16 border-t border-white/5" style="background:rgba(15,24,40,0.3);">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+      <div class="glass-card rounded-2xl p-5 text-center">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-primary-400 text-2xl mx-auto mb-3" style="background:rgba(59,130,246,0.15);"><i class="fas fa-certificate"></i></div>
+        <h3 class="font-bold text-white text-sm mb-1" style="font-family:'Syne',sans-serif;">100% Original</h3>
+        <p class="text-gray-400 text-xs">Rasmiy distribyutor</p>
+      </div>
+      <div class="glass-card rounded-2xl p-5 text-center">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-accent-400 text-2xl mx-auto mb-3" style="background:rgba(6,182,212,0.15);"><i class="fas fa-truck-fast"></i></div>
+        <h3 class="font-bold text-white text-sm mb-1" style="font-family:'Syne',sans-serif;">Tez Yetkazish</h3>
+        <p class="text-gray-400 text-xs">1-3 soat Toshkentda</p>
+      </div>
+      <div class="glass-card rounded-2xl p-5 text-center">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-green-400 text-2xl mx-auto mb-3" style="background:rgba(34,197,94,0.15);"><i class="fas fa-shield-halved"></i></div>
+        <h3 class="font-bold text-white text-sm mb-1" style="font-family:'Syne',sans-serif;">2 Yil Kafolat</h3>
+        <p class="text-gray-400 text-xs">Rasmiy xizmat</p>
+      </div>
+      <div class="glass-card rounded-2xl p-5 text-center">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-yellow-400 text-2xl mx-auto mb-3" style="background:rgba(234,179,8,0.15);"><i class="fas fa-credit-card"></i></div>
+        <h3 class="font-bold text-white text-sm mb-1" style="font-family:'Syne',sans-serif;">Muddatli To'lov</h3>
+        <p class="text-gray-400 text-xs">0% foiz, 24 oy</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

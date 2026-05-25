@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BurgerHouse — Admin Kirish</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#FF6B00',
+              'orange-light': '#FF8C00',
+              dark: '#0F1624',
+              'dark-card': '#1A2235',
+              'dark-border': '#2A3550',
+              gray: '#8B9ABB',
+            }
+          },
+          fontFamily: {
+            display: ['Nunito', 'sans-serif'],
+            body: ['Sora', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-orange': 'pulseOrange 2s ease-in-out infinite',
+            'slide-up': 'slideUp 0.6s cubic-bezier(.16,1,.3,1) both',
+            'fade-in': 'fadeIn 0.8s ease both',
+          },
+          keyframes: {
+            float: {
+              '0%,100%': { transform: 'translateY(0px) rotate(-2deg)' },
+              '50%': { transform: 'translateY(-18px) rotate(2deg)' },
+            },
+            pulseOrange: {
+              '0%,100%': { boxShadow: '0 0 0 0 rgba(255,107,0,0.4)' },
+              '50%': { boxShadow: '0 0 0 12px rgba(255,107,0,0)' },
+            },
+            slideUp: {
+              '0%': { opacity: 0, transform: 'translateY(30px)' },
+              '100%': { opacity: 1, transform: 'translateY(0)' },
+            },
+            fadeIn: {
+              '0%': { opacity: 0 },
+              '100%': { opacity: 1 },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #0F1624; }
+
+    /* Dot grid background */
+    .dot-grid {
+      background-image: radial-gradient(circle, rgba(255,107,0,0.15) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    /* Glow effects */
+    .orange-glow {
+      box-shadow: 0 0 40px rgba(255,107,0,0.25), 0 0 80px rgba(255,107,0,0.1);
+    }
+    .input-focus:focus {
+      box-shadow: 0 0 0 3px rgba(255,107,0,0.3);
+      border-color: #FF6B00 !important;
+      outline: none;
+    }
+    .btn-glow:hover {
+      box-shadow: 0 8px 32px rgba(255,107,0,0.5);
+      transform: translateY(-1px);
+    }
+    .btn-glow:active {
+      transform: translateY(0);
+    }
+    .card-shine {
+      background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0) 60%);
+    }
+  </style>
+</head>
+<body class="font-body min-h-screen flex items-center justify-center relative overflow-hidden">
+
+  <!-- Dot grid layer -->
+  <div class="dot-grid absolute inset-0 opacity-60 animate-fade-in"></div>
+
+  <!-- Orange blob top-right -->
+  <div class="absolute top-[-80px] right-[-80px] w-96 h-96 bg-brand-orange opacity-10 rounded-full blur-3xl pointer-events-none"></div>
+  <!-- Orange blob bottom-left -->
+  <div class="absolute bottom-[-100px] left-[-60px] w-80 h-80 bg-brand-orange-light opacity-10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <!-- Main layout -->
+  <div class="relative z-10 flex flex-col lg:flex-row items-center gap-16 w-full max-w-5xl px-6 py-12">
+
+    <!-- LEFT: Branding -->
+    <div class="flex-1 text-center lg:text-left animate-slide-up" style="animation-delay:0.1s">
+      <!-- Logo -->
+      <div class="flex items-center gap-3 justify-center lg:justify-start mb-8">
+        <div class="w-12 h-12 rounded-full bg-brand-orange flex items-center justify-center shadow-lg animate-pulse-orange">
+          <!-- Burger icon -->
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 9h16M4 15h16" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <path d="M6 6C6 4.34 8.69 3 12 3s6 1.34 6 3" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <rect x="3" y="17" width="18" height="4" rx="2" fill="white" opacity="0.9"/>
+          </svg>
+        </div>
+        <span class="font-display text-2xl font-900 tracking-tight">
+          <span class="text-white">Burger</span><span class="text-brand-orange">House</span>
+        </span>
+      </div>
+
+      <!-- Heading -->
+      <h1 class="font-display text-4xl lg:text-5xl font-black text-white leading-tight mb-4">
+        Admin<br/>
+        <span class="text-brand-orange">Boshqaruv</span><br/>
+        Paneli
+      </h1>
+      <p class="text-brand-gray text-base lg:text-lg leading-relaxed max-w-sm mx-auto lg:mx-0 mb-8">
+        Buyurtmalar, menyu va foydalanuvchilarni boshqarish uchun tizimga kiring.
+      </p>
+
+      <!-- Stats row -->
+      <div class="flex gap-6 justify-center lg:justify-start">
+        <div class="text-center">
+          <div class="font-display text-2xl font-black text-brand-orange">2k+</div>
+          <div class="text-brand-gray text-xs mt-0.5">Mijozlar</div>
+        </div>
+        <div class="w-px bg-brand-dark-border"></div>
+        <div class="text-center">
+          <div class="font-display text-2xl font-black text-brand-orange">4.9★</div>
+          <div class="text-brand-gray text-xs mt-0.5">Reyting</div>
+        </div>
+        <div class="w-px bg-brand-dark-border"></div>
+        <div class="text-center">
+          <div class="font-display text-2xl font-black text-brand-orange">30'</div>
+          <div class="text-brand-gray text-xs mt-0.5">Yetkazish</div>
+        </div>
+      </div>
+
+      <!-- Floating burger emoji -->
+      <div class="hidden lg:block mt-12 text-7xl animate-float select-none">🍔</div>
+    </div>
+
+    <!-- RIGHT: Login Card -->
+    <div class="w-full max-w-md animate-slide-up" style="animation-delay:0.25s">
+      <div class="relative rounded-2xl border border-brand-dark-border orange-glow overflow-hidden" style="background:#1A2235;">
+        <!-- Card shine overlay -->
+        <div class="card-shine absolute inset-0 pointer-events-none rounded-2xl"></div>
+
+        <div class="relative p-8">
+          <!-- Card header -->
+          <div class="flex items-center gap-3 mb-8">
+            <div class="w-10 h-10 rounded-xl bg-brand-orange bg-opacity-20 flex items-center justify-center">
+              <!-- Shield/lock icon -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11.35C16.5 22.15 20 17.25 20 12V6l-8-4z" fill="#FF6B00" opacity="0.3"/>
+                <path d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11.35C16.5 22.15 20 17.25 20 12V6l-8-4z" stroke="#FF6B00" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M9 12l2 2 4-4" stroke="#FF6B00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <h2 class="font-display font-bold text-white text-lg leading-tight">Tizimga kirish</h2>
+              <p class="text-brand-gray text-xs">Admin huquqlari talab etiladi</p>
+            </div>
+          </div>
+
+          <!-- Form -->
+          <form method="post" action="">
+            {% csrf_token %}
+            <!-- Username -->
+            <div class="mb-5">
+              <label class="block text-sm font-semibold text-brand-gray mb-2 tracking-wide uppercase text-xs">
+                Foydalanuvchi nomi
+              </label>
+              <div class="relative">
+                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-brand-gray">
+                  <!-- User icon -->
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                  </svg>
+                </span>
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="admin"
+                  required
+                  class="input-focus w-full pl-11 pr-4 py-3.5 rounded-xl border border-brand-dark-border text-white placeholder-brand-gray text-sm transition-all duration-200"
+                  style="background:#0F1624;"
+                />
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-6">
+              <label class="block text-sm font-semibold text-brand-gray mb-2 tracking-wide uppercase text-xs">
+                Parol
+              </label>
+              <div class="relative">
+                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-brand-gray">
+                  <!-- Lock icon -->
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <circle cx="12" cy="16" r="1.5" fill="currentColor"/>
+                  </svg>
+                </span>
+                <input
+                  type="password"
+                  name="password"
+                  id="passwordInput"
+                  placeholder="••••••••"
+                  required
+                  class="input-focus w-full pl-11 pr-12 py-3.5 rounded-xl border border-brand-dark-border text-white placeholder-brand-gray text-sm transition-all duration-200"
+                  style="background:#0F1624;"
+                />
+                <!-- Toggle password -->
+                <button type="button" onclick="togglePassword()" class="absolute right-4 top-1/2 -translate-y-1/2 text-brand-gray hover:text-white transition-colors" id="eyeBtn">
+                  <svg id="eyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M1 12S5 5 12 5s11 7 11 7-4 7-11 7S1 12 1 12z" stroke="currentColor" stroke-width="1.8"/>
+                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Remember me -->
+            <div class="flex items-center justify-between mb-7">
+              <label class="flex items-center gap-2.5 cursor-pointer group">
+                <input type="checkbox" name="remember" class="sr-only peer" id="rememberCheck"/>
+                <div onclick="toggleCheck()" class="w-5 h-5 rounded-md border-2 border-brand-dark-border flex items-center justify-center transition-all duration-150 peer-checked:border-brand-orange" id="checkBox" style="background:#0F1624;">
+                  <svg id="checkMark" width="12" height="12" viewBox="0 0 12 12" fill="none" class="opacity-0 transition-opacity">
+                    <path d="M2 6l3 3 5-5" stroke="#FF6B00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <span class="text-brand-gray text-sm group-hover:text-white transition-colors">Eslab qolish</span>
+              </label>
+              <a href="#" class="text-brand-orange text-sm hover:text-brand-orange-light transition-colors font-medium">Parolni unutdim?</a>
+            </div>
+
+            <!-- Submit -->
+            <button
+              type="submit"
+              class="btn-glow w-full py-3.5 rounded-xl font-display font-bold text-white text-base tracking-wide transition-all duration-200"
+              style="background: linear-gradient(135deg, #FF6B00 0%, #FF8C00 100%);"
+            >
+              <span class="flex items-center justify-center gap-2">
+                <!-- Arrow icon -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Kirish
+              </span>
+            </button>
+          </form>
+
+          <!-- Divider -->
+          <div class="flex items-center gap-3 my-6">
+            <div class="flex-1 h-px" style="background: #2A3550;"></div>
+            <span class="text-brand-gray text-xs">yoki</span>
+            <div class="flex-1 h-px" style="background: #2A3550;"></div>
+          </div>
+
+          <!-- Back to site -->
+          <a href="/" class="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-brand-dark-border text-brand-gray hover:text-white hover:border-brand-orange transition-all duration-200 text-sm font-medium">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M19 12H5M5 12l7-7M5 12l7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Saytga qaytish
+          </a>
+        </div>
+
+        <!-- Card footer -->
+        <div class="px-8 py-4 border-t border-brand-dark-border flex items-center justify-between" style="background:#151e30;">
+          <div class="flex items-center gap-1.5">
+            <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+            <span class="text-brand-gray text-xs">Tizim ishlayapti</span>
+          </div>
+          <span class="text-brand-gray text-xs">© 2026 BurgerHouse</span>
+        </div>
+      </div>
+
+      <!-- Help text -->
+      <p class="text-center text-brand-gray text-xs mt-5">
+        Muammo bormi? 
+        <a href="mailto:support@burgerhouse.uz" class="text-brand-orange hover:underline">Qo'llab-quvvatlash</a> bilan bog'laning
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    function togglePassword() {
+      const input = document.getElementById('passwordInput');
+      const icon = document.getElementById('eyeIcon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.innerHTML = `<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`;
+      } else {
+        input.type = 'password';
+        icon.innerHTML = `<path d="M1 12S5 5 12 5s11 7 11 7-4 7-11 7S1 12 1 12z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/>`;
+      }
+    }
+
+    let checked = false;
+    function toggleCheck() {
+      checked = !checked;
+      const box = document.getElementById('checkBox');
+      const mark = document.getElementById('checkMark');
+      if (checked) {
+        box.style.borderColor = '#FF6B00';
+        box.style.background = 'rgba(255,107,0,0.1)';
+        mark.style.opacity = '1';
+      } else {
+        box.style.borderColor = '#2A3550';
+        box.style.background = '#0F1624';
+        mark.style.opacity = '0';
+      }
+    }
+  </script>
+</body>
+</html>

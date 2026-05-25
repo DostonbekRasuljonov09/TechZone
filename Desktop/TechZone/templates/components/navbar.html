@@ -1,0 +1,68 @@
+<nav class="fixed w-full z-40 glass top-0 transition-all duration-300" style="background:rgba(8,12,20,0.85);backdrop-filter:blur(14px);border-bottom:1px solid rgba(59,130,246,0.1);">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-20">
+
+      <!-- Logo -->
+      <a href="{% url 'index' %}" class="flex items-center gap-2">
+        <div class="w-10 h-10 rounded-xl flex items-center justify-center text-white text-lg font-bold shadow-lg shadow-blue-500/30" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);">
+          <i class="fas fa-microchip"></i>
+        </div>
+        <span class="font-syne font-bold text-2xl tracking-tight text-white" style="font-family:'Syne',sans-serif;">Tech<span class="gradient-text">Zone</span></span>
+      </a>
+
+      <!-- Desktop nav -->
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="{% url 'index' %}" class="text-primary-400 font-medium transition hover:text-primary-300">Asosiy</a>
+        <a href="{% url 'index' %}?category=smartfonlar" class="text-gray-300 hover:text-white font-medium transition">Smartfonlar</a>
+        <a href="{% url 'index' %}?category=noutbuklar" class="text-gray-300 hover:text-white font-medium transition">Noutbuklar</a>
+        <a href="{% url 'index' %}#products" class="text-gray-300 hover:text-white font-medium transition">Barchasi</a>
+      </div>
+
+      <!-- Desktop icons -->
+      <div class="hidden md:flex items-center space-x-5">
+        <form action="{% url 'index' %}" method="get" class="relative">
+          <input type="text" name="q" placeholder="Qidirish..." class="bg-white/5 border border-white/10 rounded-full py-2 pl-9 pr-4 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-primary-500 w-44 transition focus:w-56">
+          <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+        </form>
+        <a href="{% url 'cart' %}" class="relative text-gray-300 hover:text-primary-400 transition group">
+          <i class="fas fa-shopping-bag text-xl group-hover:scale-110 transition"></i>
+          <span id="cart-badge" class="absolute -top-2 -right-2 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full" style="background:#06b6d4;">{{ cart_count|default:"0" }}</span>
+        </a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'profile' %}" class="text-gray-300 hover:text-white font-medium transition">{{ user.first_name|default:user.username }}</a>
+        <a href="{% url 'logout' %}" class="text-gray-400 hover:text-red-400 transition text-sm"><i class="fas fa-sign-out-alt mr-1"></i>Chiqish</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="text-gray-300 hover:text-white font-medium transition">Kirish</a>
+        <a href="{% url 'register' %}" class="text-white px-5 py-2.5 rounded-full font-medium transition shadow-lg shadow-blue-500/25" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);">Ro'yxatdan o'tish</a>
+        {% endif %}
+      </div>
+
+      <!-- Mobile -->
+      <div class="md:hidden flex items-center gap-4">
+        <a href="{% url 'cart' %}" class="relative text-gray-300 hover:text-primary-400 transition">
+          <i class="fas fa-shopping-bag text-xl"></i>
+          <span class="absolute -top-2 -right-2 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full" style="background:#06b6d4;">{{ cart_count|default:"0" }}</span>
+        </a>
+        <button onclick="toggleMenu()" class="text-gray-300 hover:text-white"><i class="fas fa-bars text-2xl"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="md:hidden hidden border-t border-blue-500/10 absolute w-full left-0" style="background:rgba(8,12,20,0.97);">
+    <div class="px-4 pt-2 pb-4 space-y-1">
+      <a href="{% url 'index' %}" class="block px-3 py-2.5 rounded-lg text-primary-400 bg-primary-500/10 font-medium">Asosiy</a>
+      <a href="{% url 'index' %}?category=smartfonlar" class="block px-3 py-2.5 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white font-medium transition">Smartfonlar</a>
+      <a href="{% url 'index' %}?category=noutbuklar" class="block px-3 py-2.5 rounded-lg text-gray-300 hover:bg-white/5 hover:text-white font-medium transition">Noutbuklar</a>
+      <div class="border-t border-white/10 my-2 pt-2">
+        {% if user.is_authenticated %}
+        <a href="{% url 'profile' %}" class="block px-3 py-2.5 rounded-lg text-gray-300 hover:bg-white/5 font-medium transition">Profil</a>
+        <a href="{% url 'logout' %}" class="block px-3 py-2.5 rounded-lg text-red-400 hover:bg-red-500/10 font-medium transition">Chiqish</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="block px-3 py-2.5 rounded-lg text-gray-300 hover:bg-white/5 font-medium transition">Kirish</a>
+        <a href="{% url 'register' %}" class="block px-3 py-2.5 rounded-lg text-white font-bold text-center mt-2" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);">Ro'yxatdan o'tish</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>

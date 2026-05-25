@@ -1,0 +1,93 @@
+    <nav class="fixed w-full z-40 glass top-0 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer"
+                    onclick="window.location.href='{% url 'index' %}'">
+                    <div
+                        class="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-primary-500/30">
+                        <i class="fas fa-hamburger"></i>
+                    </div>
+                    <span class="font-bold text-2xl tracking-tight text-white">Burger<span
+                            class="text-primary-500">House</span></span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="{% url 'index' %}"
+                        class="text-primary-500 font-medium transition hover:text-primary-400">Asosiy</a>
+                    <a href="about.html" class="text-gray-300 hover:text-white font-medium transition">Biz haqimizda</a>
+                    <a href="#menu" class="text-gray-300 hover:text-white font-medium transition">Menu</a>
+                </div>
+
+                <!-- Icons & Auth -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="cart.html" class="relative text-gray-300 hover:text-primary-500 transition group">
+                        <i class="fas fa-shopping-cart text-xl group-hover:scale-110 transition"></i>
+                        <span id="cart-icon-badge"
+                            class="absolute -top-2 -right-2 bg-primary-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full transition-all duration-300">0</span>
+                    </a>
+                    {% if not request.user.is_authenticated %}
+                    <a href="{% url 'login' %}" class="text-gray-300 hover:text-white font-medium transition">Kirish</a>
+                    <a href="{% url 'register' %}"
+                        class="bg-primary-500 hover:bg-primary-600 text-white px-5 py-2.5 rounded-full font-medium transition shadow-lg shadow-primary-500/30">Ro'yxatdan
+                        o'tish</a>
+                    {% else %}
+                        {% if '/profile/' in request.path %}
+                            <a href="{% url 'logout' %}" class="text-gray-500 hover:text-red-500 transition font-medium"
+                                onclick="Toast.show('Tizimdan chiqildi', 'info')">
+                                <i class="fas fa-sign-out-alt"></i> Chiqish
+                            </a>
+                        {% else %}
+                            <a href="{% url 'profile' %}" class="text-gray-300 hover:text-primary-500 transition group">
+                                <i class="fas fa-user-circle text-2xl group-hover:scale-110 transition"></i>
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center gap-4">
+                    <a href="cart.html" class="relative text-gray-300 hover:text-primary-500 transition">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-icon-badge-mobile"
+                            class="absolute -top-2 -right-2 bg-primary-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full transition-all duration-300">0</span>
+                    </a>
+                    <button onclick="toggleMenu()" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="md:hidden hidden glass border-t border-gray-700 absolute w-full left-0 origin-top animate-[slideInRight_0.3s_ease]">
+            <div class="px-4 pt-2 pb-4 space-y-2 bg-dark-900 border-b border-white/10 shadow-2xl">
+                <a href="index.html"
+                    class="text-primary-500 bg-primary-500/10 block px-3 py-2 rounded-md text-base font-medium">Asosiy</a>
+                <a href="about.html"
+                    class="text-gray-300 hover:text-white hover:bg-white/5 block px-3 py-2 rounded-md text-base font-medium transition">Biz
+                    haqimizda</a>
+                <a href="#menu"
+                    class="text-gray-300 hover:text-white hover:bg-white/5 block px-3 py-2 rounded-md text-base font-medium transition">Menu</a>
+                {% if request.user.is_authenticated %}
+                    {% if '/profile/' in request.path %}
+                        <a href="{% url 'logout' %}"
+                            class="text-red-400 hover:text-red-300 block px-3 py-2 rounded-md text-base font-medium transition">Chiqish
+                        </a>
+                    {% else %}
+                        <a href="{% url 'profile' %}"
+                            class="text-gray-300 hover:text-white hover:bg-white/5 block px-3 py-2 rounded-md text-base font-medium transition">Profil</a>
+                        <div class="border-t border-white/10 my-2 pt-2"></div>
+                    {% endif %}
+                {% else %}
+                <a href="{% url 'login' %}"
+                    class="text-gray-300 hover:text-white hover:bg-white/5 block px-3 py-2 rounded-md text-base font-medium transition">Kirish</a>
+                <a href="{% url 'register' %}"
+                    class="text-white bg-primary-500 hover:bg-primary-600 block px-3 py-2 rounded-md text-base font-bold text-center mt-2 transition">Ro'yxatdan
+                    o'tish</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>

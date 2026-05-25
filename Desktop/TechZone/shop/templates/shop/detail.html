@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% block title %}{{ product.name }} — TechZone{% endblock %}
+{% block hero %}{% endblock %}
+{% block main %}
+<section class="pt-32 pb-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Breadcrumb -->
+    <div class="flex items-center gap-2 text-sm text-gray-500 mb-8">
+      <a href="{% url 'index' %}" class="hover:text-white transition">Bosh sahifa</a>
+      <i class="fas fa-chevron-right text-xs"></i>
+      {% if product.category %}<a href="{% url 'index' %}?category={{ product.category.slug }}" class="hover:text-white transition">{{ product.category.name }}</a><i class="fas fa-chevron-right text-xs"></i>{% endif %}
+      <span class="text-gray-300">{{ product.name }}</span>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+      <!-- Images -->
+      <div class="space-y-4">
+        <div class="glass-card rounded-3xl overflow-hidden aspect-square img-zoom-container">
+          <img id="main-img" src="{{ product.get_image }}" alt="{{ product.name }}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x600/1e293b/60a5fa?text={{ product.brand }}'">
+        </div>
+        {% if product.images.count > 1 %}
+        <div class="flex gap-3 overflow-x-auto pb-2">
+          {% for img in product.images.all %}
+          <button onclick="document.getElementById('main-img').src='{{ img.image.url }}'; document.querySelectorAll('.thumb-btn').forEach(b=>b.classList.remove('ring-2','ring-primary-500')); this.classList.add('ring-2','ring-primary-500')" class="thumb-btn flex-shrink-0 glass-card rounded-xl overflow-hidden w-24 h-24 {% if forloop.first %}ring-2 ring-primary-500{% endif %}">
+            <img src="{{ img.image.url }}" alt="thumb" class="w-full h-full object-cover">
+          </button>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Product info -->
+      <div class="space-y-6">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-bold px-3 py-1 rounded-full" style="background:rgba(59,130,246,0.2);color:#60a5fa;">{{ product.brand }}</span>
+          {% if product.category %}<span class="text-xs font-bold px-3 py-1 rounded-full text-gray-300 glass">{{ product.category.name }}</span>{% endif %}
+          {% if product.stock > 0 %}<span class="text-xs font-bold px-3 py-1 rounded-full" style="background:rgba(34,197,94,0.15);color:#4ade80;">✓ Omborda mavjud ({{ product.stock }} ta)</span>
+          {% else %}<span class="text-xs font-bold px-3 py-1 rounded-full bg-red-500/15 text-red-400">Tugagan</span>{% endif %}
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-white" style="font-family:'Syne',sans-serif;">{{ product.name }}</h1>
+        
+        <!-- Rating -->
+        <div class="flex items-center gap-3">
+          <div class="flex text-yellow-400 gap-0.5 text-lg">
+            {% with avg=product.avg_rating %}
+            {% for i in "12345" %}
+              {% if forloop.counter <= avg %}<i class="fas fa-star"></i>{% else %}<i class="far fa-star"></i>{% endif %}
+            {% endfor %}
+            {% endwith %}
+          </div>
+          <span class="text-gray-400 text-sm">{{ product.avg_rating }}/5 ({{ comments|length }} ta sharh)</span>
+        </div>
+
+        <div>
+          <span class="text-4xl font-bold text-white" style="font-family:'Syne',sans-serif;">{{ product.price|floatformat:0 }}</span>
+          <span class="text-gray-400 ml-2 text-lg">so'm</span>
+        </div>
+
+        <p class="text-gray-300 leading-relaxed text-lg">{{ product.description }}</p>
+
+        <!-- Specs -->
+        {% if product.specs %}
+        <div class="glass rounded-2xl p-5">
+          <h4 class="text-white font-bold mb-3 text-sm uppercase tracking-wider" style="font-family:'Syne',sans-serif;"><i class="fas fa-microchip text-primary-400 mr-2"></i>Texnik xususiyatlar</h4>
+          <div class="grid grid-cols-1 gap-2">
+            {% for spec in specs_list %}
+            <div class="flex items-center gap-2 text-sm text-gray-300">
+              <i class="fas fa-check text-primary-400 text-xs flex-shrink-0"></i>
+              <span>{{ spec }}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- Actions -->
+        <div class="flex gap-4 pt-2">
+          <a href="{% url 'cart_add' product.pk %}" class="flex-1 text-white py-4 rounded-xl font-bold text-lg transition shadow-lg shadow-blue-500/25 hover:-translate-y-0.5 flex items-center justify-center gap-2" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);">
+            <i class="fas fa-shopping-bag"></i> Savatga qo'shish
+          </a>
+          <a href="{% url 'checkout' %}" class="w-14 h-14 glass rounded-xl flex items-center justify-center text-gray-300 hover:text-accent-400 hover:border-accent-400 transition text-xl" title="Xozir xarid qilish">
+            <i class="fas fa-bolt"></i>
+          </a>
+        </div>
+
+        <!-- Delivery info -->
+        <div class="flex items-center gap-3 p-4 rounded-xl border" style="background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.2);">
+          <i class="fas fa-truck-fast text-green-400 text-xl"></i>
+          <div>
+            <p class="text-white font-bold text-sm">Toshkentga bugun yetkazib beramiz!</p>
+            <p class="text-gray-400 text-xs">Soat 17:00 gacha buyurtma bering • Bepul yetkazib berish</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="max-w-3xl">
+      <h2 class="text-3xl font-bold text-white mb-8" style="font-family:'Syne',sans-serif;"><i class="fas fa-comments text-primary-400 mr-3"></i>Sharhlar ({{ comments|length }})</h2>
+
+      <!-- Add comment form -->
+      {% if user.is_authenticated %}
+      <div class="glass-card rounded-2xl p-7 mb-8">
+        <h3 class="text-lg font-bold text-white mb-5" style="font-family:'Syne',sans-serif;">Sharh qoldiring</h3>
+        <form method="post" class="space-y-4">
+          {% csrf_token %}
+          <!-- Star rating -->
+          <div>
+            <label class="text-sm text-gray-400 mb-2 block">Baho bering:</label>
+            <div class="flex gap-2" id="star-container">
+              {% for i in "54321" %}
+              <button type="button" onclick="setRating({{ i }})" class="star-btn text-2xl text-gray-600 hover:text-yellow-400 transition" data-val="{{ i }}">★</button>
+              {% endfor %}
+            </div>
+            <input type="hidden" name="rate" id="rate-input" value="5">
+          </div>
+          <div>
+            <label class="text-sm text-gray-400 mb-2 block">Izohingiz:</label>
+            <textarea name="text" rows="4" required placeholder="Bu mahsulot haqida fikringizni yozing..." class="w-full rounded-xl py-3 px-4 text-white placeholder-gray-600 focus:outline-none focus:border-primary-500 transition resize-none" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);"></textarea>
+          </div>
+          <button type="submit" class="text-white px-7 py-3 rounded-xl font-bold transition shadow-lg shadow-blue-500/25 hover:-translate-y-0.5" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);">
+            <i class="fas fa-paper-plane mr-2"></i>Yuborish
+          </button>
+        </form>
+      </div>
+      {% else %}
+      <div class="glass-card rounded-2xl p-6 mb-8 text-center">
+        <i class="fas fa-lock text-primary-400 text-3xl mb-3"></i>
+        <p class="text-gray-300 mb-4">Sharh qoldirish uchun tizimga kiring</p>
+        <a href="{% url 'login' %}" class="inline-block text-white px-6 py-2.5 rounded-xl font-bold" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);">Kirish</a>
+      </div>
+      {% endif %}
+
+      <!-- Comments list -->
+      {% if comments %}
+      <div class="space-y-5">
+        {% for comment in comments %}
+        <div class="glass-card rounded-2xl p-6">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);">
+                {{ comment.user.first_name|first|upper|default:comment.user.username|first|upper }}
+              </div>
+              <div>
+                <p class="font-bold text-white text-sm">{{ comment.user.first_name|default:comment.user.username }}</p>
+                <p class="text-gray-500 text-xs">{{ comment.time|date:"d-M Y, H:i" }}</p>
+              </div>
+            </div>
+            <div class="flex text-yellow-400 gap-0.5">
+              {% for i in "12345" %}{% if forloop.counter <= comment.rate %}<i class="fas fa-star text-sm"></i>{% else %}<i class="far fa-star text-sm"></i>{% endif %}{% endfor %}
+            </div>
+          </div>
+          <p class="text-gray-300 text-sm leading-relaxed">{{ comment.text }}</p>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="text-center py-12 glass-card rounded-2xl">
+        <i class="far fa-comment-dots text-5xl text-gray-600 mb-4"></i>
+        <p class="text-gray-400">Hali sharh yo'q. Birinchi bo'ling!</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<script>
+function setRating(val) {
+  document.getElementById('rate-input').value = val;
+  document.querySelectorAll('.star-btn').forEach(btn => {
+    btn.style.color = parseInt(btn.dataset.val) <= val ? '#facc15' : '#4b5563';
+  });
+}
+// Init stars (5 filled)
+document.addEventListener('DOMContentLoaded', () => setRating(5));
+</script>
+{% endblock %}
+{% block footer %}{% include 'layout/footer.html' %}{% endblock %}

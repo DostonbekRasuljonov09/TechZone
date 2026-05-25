@@ -1,0 +1,58 @@
+<footer style="background:#080c14;border-top:1px solid rgba(59,130,246,0.1);" class="pt-16 pb-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
+      <div>
+        <a href="{% url 'index' %}" class="flex items-center gap-2 mb-5">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center text-white text-lg" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);"><i class="fas fa-microchip"></i></div>
+          <span class="font-syne font-bold text-2xl text-white" style="font-family:'Syne',sans-serif;">Tech<span class="gradient-text">Zone</span></span>
+        </a>
+        <p class="text-gray-400 text-sm leading-relaxed mb-6">O'zbekistondagi eng ishonchli texnologiya do'koni. Original mahsulotlar, kafolatli xizmat.</p>
+        <div class="flex gap-3">
+          <a href="#" class="w-9 h-9 rounded-xl glass flex items-center justify-center text-gray-300 hover:text-white hover:bg-primary-500 transition"><i class="fab fa-telegram-plane text-sm"></i></a>
+          <a href="#" class="w-9 h-9 rounded-xl glass flex items-center justify-center text-gray-300 hover:text-white hover:bg-primary-500 transition"><i class="fab fa-instagram text-sm"></i></a>
+          <a href="#" class="w-9 h-9 rounded-xl glass flex items-center justify-center text-gray-300 hover:text-white hover:bg-primary-500 transition"><i class="fab fa-facebook-f text-sm"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-syne font-bold text-white mb-5 uppercase tracking-widest text-xs border-b border-white/10 pb-2" style="font-family:'Syne',sans-serif;">Kategoriyalar</h4>
+        <ul class="space-y-3">
+          {% for cat in categories %}
+          <li><a href="{% url 'index' %}?category={{ cat.slug }}" class="text-gray-400 hover:text-primary-400 transition text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-[9px]"></i> {{ cat.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-syne font-bold text-white mb-5 uppercase tracking-widest text-xs border-b border-white/10 pb-2" style="font-family:'Syne',sans-serif;">Sahifalar</h4>
+        <ul class="space-y-3">
+          <li><a href="{% url 'index' %}" class="text-gray-400 hover:text-primary-400 transition text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-[9px]"></i> Bosh sahifa</a></li>
+          <li><a href="{% url 'cart' %}" class="text-gray-400 hover:text-primary-400 transition text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-[9px]"></i> Savat</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'profile' %}" class="text-gray-400 hover:text-primary-400 transition text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-[9px]"></i> Shaxsiy kabinet</a></li>
+          <li><a href="{% url 'logout' %}" class="text-gray-400 hover:text-primary-400 transition text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-[9px]"></i> Chiqish</a></li>
+          {% else %}
+          <li><a href="{% url 'login' %}" class="text-gray-400 hover:text-primary-400 transition text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-[9px]"></i> Kirish</a></li>
+          <li><a href="{% url 'register' %}" class="text-gray-400 hover:text-primary-400 transition text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-[9px]"></i> Ro'yxatdan o'tish</a></li>
+          {% endif %}
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-syne font-bold text-white mb-5 uppercase tracking-widest text-xs border-b border-white/10 pb-2" style="font-family:'Syne',sans-serif;">Aloqa</h4>
+        <ul class="space-y-4">
+          <li class="flex items-start gap-3"><div class="w-8 h-8 rounded-lg glass flex items-center justify-center text-primary-400 shrink-0"><i class="fas fa-map-marker-alt text-sm"></i></div><span class="text-gray-400 text-sm leading-relaxed mt-0.5">Toshkent, Chilonzor tumani, Bunyodkor ko'chasi 22</span></li>
+          <li class="flex items-center gap-3"><div class="w-8 h-8 rounded-lg glass flex items-center justify-center text-primary-400 shrink-0"><i class="fas fa-phone-alt text-sm"></i></div><span class="text-gray-400 text-sm">+998 71 200 50 50</span></li>
+          <li class="flex items-center gap-3"><div class="w-8 h-8 rounded-lg glass flex items-center justify-center text-primary-400 shrink-0"><i class="fas fa-envelope text-sm"></i></div><span class="text-gray-400 text-sm">info@techzone.uz</span></li>
+          <li class="flex items-center gap-3"><div class="w-8 h-8 rounded-lg glass flex items-center justify-center text-primary-400 shrink-0"><i class="fas fa-clock text-sm"></i></div><span class="text-gray-400 text-sm">Dush–Yak: 09:00–21:00</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10 pt-7 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-gray-500 text-sm">&copy; <span id="current-year"></span> TechZone. Barcha huquqlar himoyalangan.</p>
+      <div class="flex gap-2">
+        <div class="w-12 h-8 glass rounded-lg flex items-center justify-center hover:border-white/30 transition cursor-pointer"><i class="fab fa-cc-visa text-gray-300 text-xl"></i></div>
+        <div class="w-12 h-8 glass rounded-lg flex items-center justify-center hover:border-white/30 transition cursor-pointer"><i class="fab fa-cc-mastercard text-gray-300 text-xl"></i></div>
+        <div class="w-14 h-8 glass rounded-lg flex items-center justify-center text-gray-300 text-xs font-bold cursor-pointer hover:border-white/30 transition">UZCARD</div>
+        <div class="w-12 h-8 glass rounded-lg flex items-center justify-center text-blue-400 text-xs font-bold cursor-pointer hover:border-white/30 transition">HUMO</div>
+      </div>
+    </div>
+  </div>
+</footer>
